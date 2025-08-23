@@ -15,6 +15,7 @@ import {
   Divider,
   NavMenu,
 } from "./header.styles";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
@@ -31,17 +32,17 @@ const Header = () => {
 
         <RightArea>
           <TopLinks>
-            <a href="#">About</a>
+            <Link to="about">About</Link>
             <Divider>|</Divider>
-            <a href="#">로그인</a>
+            <Link to="/login">로그인</Link>
             <Divider>|</Divider>
-            <a href="#">회원가입</a>
+            <Link to="/signup">회원가입</Link>
           </TopLinks>
 
           <NavMenu>
-            <a href="#">데이터 조회</a>
-            <a href="#">학생 등록</a>
-            <a href="#">학생 삭제</a>
+            <Link to="/data-query">데이터 조회</Link>
+            <Link to="/student-registration">학생 등록</Link>
+            <Link to="/student-deletion">학생 삭제</Link>
           </NavMenu>
         </RightArea>
       </TopRow>
