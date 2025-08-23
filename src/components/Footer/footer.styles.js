@@ -8,11 +8,14 @@ import styled from "styled-components";
 /* ──────────────── 풋터 전체 래퍼 ──────────────── */
 export const FooterWrapper = styled.footer`
   width: 100%;
-  height: 10px;
-  padding: 10px
-  border-top: 1px solid #8a949e;
+  height: 25px;
+  padding: 10px;
   background-color: #fafafa;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   p {
     margin: 5px;

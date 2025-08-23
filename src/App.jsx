@@ -1,19 +1,38 @@
-// src/App.jsx
-// This file is part of the Daedeok Software Meister High School project.
-// Created by [ jaejun ] on [ 2025-08-06 ].
-// last modified by [ jaejun ] on [ 2025-08-06 ].
+import { Routes, Route, Link } from "react-router-dom";
+import { createGlobalStyle } from "styled-components";
+import Layout from "./Layout";
+import Home from "./pages/home";
 
-import React from "react";
-import Header from "./components/Header/header.jsx";
-import Footer from "./components/Footer/footer.jsx";
+const GlobalStyle = createGlobalStyle`
+  * {
+    box-sizing: border-box;
+  }
+`;
 
-const App = () => {
+function App() {
   return (
-    <div>
-      <Header />
-      <Footer />
-    </div>
+    <>
+      <GlobalStyle />
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <Home />
+            </Layout>
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <Layout>
+              <Home />
+            </Layout>
+          }
+        />
+      </Routes>
+    </>
   );
-};
+}
 
 export default App;
