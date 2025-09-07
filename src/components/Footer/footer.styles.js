@@ -10,7 +10,7 @@ export const FooterWrapper = styled.footer`
   width: 100%;
   height: 25px;
   padding: 10px;
-  background-color: #fafafa;
+  background-color: #E6E8EA;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

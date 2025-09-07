@@ -1,7 +1,7 @@
 import { Routes, Route, Link } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Layout from "./Layout";
-import Home from "./pages/home";
+import Home from "./pages/home/home";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -14,14 +14,6 @@ function App() {
     <>
       <GlobalStyle />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <Layout>
-              <Home />
-            </Layout>
-          }
-        />
         <Route
           path="/home"
           element={
