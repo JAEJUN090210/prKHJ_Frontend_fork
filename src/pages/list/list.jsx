@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../../styles/reset.css";
 import icon1 from "../../assets/search_icon.png";
+import { downloadExcel } from "./down";
 // import { BoardList } from "../../components/boardList/boardList";
 import {
   Content,
@@ -22,6 +23,29 @@ import {
 } from "./list.styles";
 
 function List() {
+  const data = [
+    {
+      id: "siheun9",
+      student_no: 1304,
+      name: "김시흔",
+      solved_total: 4,
+      tier: 3,
+      solved_today: 1,
+      accuracy_pct: 45,
+      streak_days: 3,
+    },
+    {
+      id: "seungmin01",
+      student_no: 1305,
+      name: "이승민",
+      solved_total: 10,
+      tier: 5,
+      solved_today: 2,
+      accuracy_pct: 78,
+      streak_days: 7,
+    },
+  ];
+
   const lerterror = () => {
     alert("해당 기능은 이용할 수 없습니다.\n추후 업데이트 예정입니다.");
   };
@@ -145,7 +169,7 @@ function List() {
           <ResetButton onClick={handleReset}>초기화</ResetButton>
         </SectionContainer>
         <SectionContainer>
-          <ExcelButton onClick={lerterror}>Excel Download</ExcelButton>
+          <ExcelButton onClick={() => downloadExcel(data)}>Excel Download</ExcelButton>
         </SectionContainer>
       </SearchFilterBox>
     </Content>
