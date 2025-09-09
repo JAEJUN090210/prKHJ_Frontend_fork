@@ -1,0 +1,24 @@
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import colors from "../../styles/colors_system";
+
+export const BoardItemContainer = styled.div`
+  font-family: "Pretendard GOV", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+
+  display: flex;
+  gap: 36px;
+  height: 33px;
+  width: 900px;
+
+  border-bottom: 1px solid ${colors.gray[400]};
+  color: ${colors.text.basic};
+  align-items: center;
+`;
+
+export const Cell = styled.div`
+  text-align: center;
+  white-space: nowrap;
+  width: ${({ width }) => width || "auto"};
+`;

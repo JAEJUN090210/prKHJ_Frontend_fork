@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import colors from "../../styles/colors_system";
 
 export const Wrapper = styled.div`
   position: relative;
@@ -13,8 +14,10 @@ export const Wrapper = styled.div`
 `;
 
 export const Box = styled.div`
-  background: #FAFAFA;
-  padding: 50px 20px;
+  font-family: "Pretendard GOV", sans-serif;
+  font-weight: 700;
+  background: ${colors.gray[50]};
+  padding: 35px 20px;
   position: absolute;
   border-radius: 12px;
   box-shadow: 0 16px 24px rgba(0, 0, 0, 0.2);
@@ -22,23 +25,30 @@ export const Box = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  color: #131416;
+  color: ${colors.text.basic};
 
   span {
     display: block;
     margin-bottom: 12px;
+    font-size: 17px;
   }
 
   button {
     padding: 12px 24px;
     border: none;
     border-radius: 4px;
-    background-color: #256EF4;
-    color: #131416;
+    background-color: ${colors.button.default};
+    color: ${colors.gray[50]};
     cursor: pointer;
+    font-size: 15px;
+    margin-top: 30px;
 
     &:hover {
-      background-color: #1a73e8;
+      background-color: ${colors.button.hover};
+    }
+
+    &:active {
+      background-color: ${colors.button.pressed};
     }
   }
 `;

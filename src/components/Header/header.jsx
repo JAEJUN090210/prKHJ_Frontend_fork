@@ -18,31 +18,42 @@ import {
 import { Link } from "react-router-dom";
 
 const Header = () => {
+  const lerterror = () => {
+    alert("해당 기능은 이용할 수 없습니다.\n추후 업데이트 예정입니다.");
+  };
+
   return (
     <HeaderWrapper>
       <TopRow>
-        <LeftArea>
-          <LogoText>KHJ</LogoText>
-          <SubText>
-            Daedeok Software
-            <br />
-            Coding Test System
-          </SubText>
-        </LeftArea>
+        <Link to="/home" style={{ textDecoration: "none" }}>
+          <LeftArea>
+            <LogoText>KHJ</LogoText>
+            <SubText>
+              Daedeok Software
+              <br />
+              Coding Test System
+            </SubText>
+          </LeftArea>
+        </Link>
 
         <RightArea>
           <TopLinks>
-            <Link to="about">About</Link>
+            {/* <Link to="about">About</Link>
             <Divider>|</Divider>
             <Link to="/login">로그인</Link>
             <Divider>|</Divider>
-            <Link to="/signup">회원가입</Link>
+            <Link to="/signup">회원가입</Link> */}
+            <Link onClick={lerterror}>About</Link>
+            <Divider>|</Divider>
+            <Link onClick={lerterror}>로그인</Link>
+            <Divider>|</Divider>
+            <Link onClick={lerterror}>회원가입</Link>
           </TopLinks>
 
           <NavMenu>
-            <Link to="/data-query">데이터 조회</Link>
-            <Link to="/student-registration">학생 등록</Link>
-            <Link to="/student-deletion">학생 삭제</Link>
+            <Link to="/list">데이터 조회</Link>
+            <Link onClick={lerterror}>학생 등록</Link>
+            <Link onClick={lerterror}>학생 삭제</Link>
           </NavMenu>
         </RightArea>
       </TopRow>
