@@ -20,10 +20,16 @@ function BoardItem({
   };
 
   return (
-    <BoardItemContainer onClick={handleItemClick}>
-      <Cell width="55px">{studentId}</Cell>
-      <Cell width="80px">{name}</Cell>
-      <Cell width="170px">{baekjoonId}</Cell>
+    <BoardItemContainer>
+      <Cell width="55px" onClick={handleItemClick} style={{ cursor: "pointer" }}>
+        {studentId}
+      </Cell>
+      <Cell width="80px" onClick={handleItemClick} style={{ cursor: "pointer" }}>
+        {name}
+      </Cell>
+      <Cell width="170px" onClick={handleItemClick} style={{ cursor: "pointer" }}>
+        {baekjoonId}
+      </Cell>
       <Cell width="90px">{solvedAc}</Cell>
       <Cell width="70px">{total}개</Cell>
       <Cell width="45px">{accuracy}%</Cell>

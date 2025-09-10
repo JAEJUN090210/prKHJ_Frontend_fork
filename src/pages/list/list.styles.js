@@ -19,7 +19,7 @@ export const BoardContainer = styled.div`
   flex-direction: column;
 
   width: 950px;
-  min-height: 1200px;
+  min-height: 800px;
   height: auto;
 `;
 

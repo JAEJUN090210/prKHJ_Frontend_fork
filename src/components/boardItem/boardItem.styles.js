@@ -6,7 +6,6 @@ export const BoardItemContainer = styled.div`
   font-family: "Pretendard GOV", sans-serif;
   font-weight: 400;
   font-size: 16px;
-  cursor: pointer;
 
   display: flex;
   gap: 36px;
