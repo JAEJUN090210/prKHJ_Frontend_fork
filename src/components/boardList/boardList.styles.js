@@ -5,6 +5,7 @@ export const BoardListContainer = styled.div`
   display: flex;
   flex-direction: column;
 
+  margin-top: 25px;
   width: 900px;
   min-height: 500px;
   height: auto;
@@ -25,11 +26,12 @@ export const BoardListHeader = styled.div`
   border-bottom: 1px solid ${colors.gray[400]};
   color: ${colors.text.primary};
   align-items: center;
+  justify-content: center;
 `;
 
 // 게시판 리스트 제목
 export const BoardListTitle = styled.h2`
   width: ${({ width }) => width || "auto"};
   text-align: center;
-  height: 32px;
+  justify-content: center;
 `;

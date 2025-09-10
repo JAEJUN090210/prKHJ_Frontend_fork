@@ -28,7 +28,7 @@ export const BoardTitle = styled.h1`
   font-weight: 700;
   font-size: 28px;
   colors: ${colors.text.basic}
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 `;
 
 // --- 검색 및 필터 컴포넌트 스타일 ---

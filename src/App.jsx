@@ -1,9 +1,12 @@
 import { Routes, Route, Link } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+
 import Layout from "./Layout";
 import Home from "./pages/home/home";
 import List from "./pages/list/list";
-import Dashboard from "./pages/Dashboard/Dashboard";
+// import Dashboard from "./pages/Dashboard/Dashboard";
+import Dashboard from "./pages/Dashboard/Dashboard2"; // 테스트용
+import NotFound from "./pages/PageNotFound";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -21,6 +24,14 @@ function App() {
     <>
       <GlobalStyle />
       <Routes>
+        <Route
+          path="/"
+          element={
+            <Layout>
+              <Home />
+            </Layout>
+          }
+        />
         <Route
           path="/home"
           element={
@@ -40,13 +51,15 @@ function App() {
         />
 
         <Route
-          path="/dashboard"
+          path="/dashboard/:studentId"
           element={
             <Layout>
               <Dashboard />
             </Layout>
           }
         />
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
