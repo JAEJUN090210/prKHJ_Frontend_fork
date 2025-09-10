@@ -6,6 +6,7 @@ export const BoardItemContainer = styled.div`
   font-family: "Pretendard GOV", sans-serif;
   font-weight: 400;
   font-size: 16px;
+  cursor: pointer;
 
   display: flex;
   gap: 36px;
@@ -15,6 +16,7 @@ export const BoardItemContainer = styled.div`
   border-bottom: 1px solid ${colors.gray[400]};
   color: ${colors.text.basic};
   align-items: center;
+  justify-content: center;
 `;
 
 export const Cell = styled.div`

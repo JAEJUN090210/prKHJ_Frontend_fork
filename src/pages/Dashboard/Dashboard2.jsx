@@ -1,4 +1,3 @@
-// src/Dashboard.jsx
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { useNavigate, useParams } from "react-router-dom";
@@ -54,12 +53,15 @@ function Dashboard() {
 
   const [weeklySolvedData, setWeeklySolvedData] = useState([]);
 
-  const API_BASE = import.meta.env.VITE_REACT_APP_API_BASE_URL;
+  // 로컬 JSON 파일 경로
+  const MEMBER_API_URL = "/data/members.json";
+  const WEEKLY_API_URL = "/data/weekly_solved.json";
 
+  // 학생 기본 정보 가져오기
   useEffect(() => {
     const fetchStudentInfo = async () => {
       try {
-        const res = await fetch(`${API_BASE}/member`);
+        const res = await fetch(MEMBER_API_URL);
         const data = await res.json();
         const foundStudent = data.list.find(
           (member) => member.student_no === parseInt(studentId)
@@ -72,50 +74,59 @@ function Dashboard() {
       }
     };
     fetchStudentInfo();
-  }, [studentId, API_BASE]);
+  }, [studentId]);
 
+  // 주간 풀이 현황 가져오기
   useEffect(() => {
     const fetchWeeklySolved = async () => {
       try {
-        const res = await fetch(`${API_BASE}/weekly_solved`);
+        const res = await fetch(WEEKLY_API_URL);
         const data = await res.json();
-        const foundWeeklyData = data.list.find((item) => item.id === studentInfo.id);
 
-        if (foundWeeklyData) {
-          const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-          const today = new Date();
-          const dates = Array.from({ length: 7 }, (_, i) => {
-            const d = new Date(today);
-            d.setDate(today.getDate() - ((today.getDay() - i + 7) % 7));
-            return `${d.getMonth() + 1}/${d.getDate()}`;
-          });
+        // studentInfo가 업데이트된 후에만 실행
+        if (studentInfo.id !== "NON") {
+          const foundWeeklyData = data.list.find((item) => item.id === studentInfo.id);
 
-          const chartData = days.map((day, index) => ({
-            date: dates[index],
-            solvedCount: foundWeeklyData[day] !== -1 ? foundWeeklyData[day] : 0,
-          }));
-          setWeeklySolvedData(chartData);
-        } else {
-          setWeeklySolvedData(
-            Array.from({ length: 7 }, (_, i) => {
-              const d = new Date();
-              d.setDate(d.getDate() - ((d.getDay() - i + 7) % 7));
-              return {
-                date: `${d.getMonth() + 1}/${d.getDate()}`,
-                solvedCount: 0,
-              };
-            })
-          );
+          if (foundWeeklyData) {
+            const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            const today = new Date();
+            const dates = Array.from({ length: 7 }, (_, i) => {
+              const d = new Date(today);
+              d.setDate(today.getDate() - ((today.getDay() - i + 7) % 7));
+              return `${d.getMonth() + 1}/${d.getDate()}`;
+            });
+
+            const chartData = days.map((day, index) => ({
+              date: dates[index],
+              solvedCount: foundWeeklyData[day] !== -1 ? foundWeeklyData[day] : 0,
+            }));
+            setWeeklySolvedData(chartData);
+          } else {
+            // 데이터가 없는 경우 기본값 설정
+            setWeeklySolvedData(
+              Array.from({ length: 7 }, (_, i) => {
+                const d = new Date();
+                d.setDate(d.getDate() - ((d.getDay() - i + 7) % 7));
+                return {
+                  date: `${d.getMonth() + 1}/${d.getDate()}`,
+                  solvedCount: 0,
+                };
+              })
+            );
+          }
         }
       } catch (err) {
         console.error("Failed to fetch weekly solved data", err);
       }
     };
+
+    // studentInfo.id가 유효할 때만 API 호출
     if (studentInfo.id !== "NON") {
       fetchWeeklySolved();
     }
-  }, [studentInfo.id, API_BASE]);
+  }, [studentInfo.id]); // studentInfo.id가 변경될 때마다 실행
 
+  // 차트 데이터 및 옵션 (기존 코드와 동일)
   const data = {
     labels: weeklySolvedData.map((d) => d.date),
     datasets: [

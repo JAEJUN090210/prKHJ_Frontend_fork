@@ -5,6 +5,8 @@ import backgroundImage from "../../assets/Group 79.svg";
 import { Wrapper, Box } from "./home.styles";
 
 function Home() {
+  const navigate = useNavigate();
+
   const lerterror = () => {
     alert("로그인 없이 이용 가능합니다.\n데이터 조회 페이지로 이동합니다.");
     navigate("/list");
