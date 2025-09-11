@@ -12,10 +12,9 @@ function BoardItem({
   today,
   streak,
 }) {
-  const navigate = useNavigate(); // useNavigate 훅 사용
+  const navigate = useNavigate();
 
   const handleItemClick = () => {
-    // /dashboard/:studentId 형식의 동적 URL로 이동
     navigate(`/dashboard/${studentId}`);
   };
 

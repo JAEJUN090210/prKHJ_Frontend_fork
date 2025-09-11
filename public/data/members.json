@@ -1,7 +1,7 @@
 {
   "list": [
-    { "id": "user_1101", "student_no": 1101, "name": "test01", "solved_total": 45, "tier": 12, "solved_today": 2, "accuracy_pct": 78, "streak_days": 4 },
-    { "id": "user_1102", "student_no": 1102, "name": "test02", "solved_total": 55, "tier": 14, "solved_today": 1, "accuracy_pct": 82, "streak_days": 3 },
+    { "id": "user_1101", "student_no": 1101, "name": "test01", "solved_total": 45, "tier": 0, "solved_today": 2, "accuracy_pct": 78, "streak_days": 4 },
+    { "id": "user_1102", "student_no": 1102, "name": "test02", "solved_total": 55, "tier": 1, "solved_today": 1, "accuracy_pct": 82, "streak_days": 3 },
     { "id": "user_1103", "student_no": 1103, "name": "test03", "solved_total": 30, "tier": 10, "solved_today": 0, "accuracy_pct": 65, "streak_days": 0 },
     { "id": "user_1104", "student_no": 1104, "name": "test04", "solved_total": 70, "tier": 16, "solved_today": 3, "accuracy_pct": 90, "streak_days": 7 },
     { "id": "user_1105", "student_no": 1105, "name": "test05", "solved_total": 20, "tier": 8, "solved_today": 1, "accuracy_pct": 55, "streak_days": 1 },

@@ -1,5 +1,5 @@
 import { BoardListContainer, BoardListHeader, BoardListTitle } from "./boardList.styles";
-import BoardItem from "../../components/boardItem/BoardItem.jsx";
+import BoardItem from "../boardItem/boardItem";
 
 function BoardList({ items }) {
   return (
@@ -21,7 +21,7 @@ function BoardList({ items }) {
           studentId={student.student_no}
           name={student.name}
           baekjoonId={student.id}
-          solvedAc={student.tier}
+          solvedAc={student.tierName}
           total={student.solved_total}
           accuracy={student.accuracy_pct}
           today={student.solved_today}
