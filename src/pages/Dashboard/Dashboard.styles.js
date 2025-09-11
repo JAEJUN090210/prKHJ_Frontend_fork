@@ -68,13 +68,13 @@ export const ChartContainer = styled.div`
   background-color: white;
   border: 1px solid ${colors.gray[100]};
   border-radius: 8px;
-  padding: 16px;
+  padding: 18px;
   position: relative;
 `;
 
 export const ChartLabels = styled.div`
   position: absolute;
-  width: 104%;
+  width: 103%;
   display: flex;
   justify-content: space-around;
   bottom: 0;
@@ -96,10 +96,18 @@ export const DateText = styled.span`
   top: 40px;
   color: ${colors.text.subtle};
   margin-bottom: 4px;
+
   ${(props) =>
-    props.isToday &&
+    props.isSunday &&
     `
-    color: ${colors.danger[400]};
+    color: ${colors.danger[400]}; /* 일요일 빨간색 */
+    font-weight: 700;
+  `}
+
+  ${(props) =>
+    props.isSaturday &&
+    `
+    color: ${colors.primary[400]}; /* 토요일 파란색 */
     font-weight: 700;
   `}
 `;
