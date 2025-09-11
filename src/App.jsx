@@ -1,10 +1,10 @@
 import { Routes, Route, Link } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
+import React, { useState, useEffect } from "react";
 
 import Layout from "./Layout";
 import Home from "./pages/home/home";
 import List from "./pages/list/list";
-// import Dashboard from "./pages/Dashboard/Dashboard";
 import Dashboard from "./pages/Dashboard/Dashboard2"; // 테스트용
 import NotFound from "./pages/PageNotFound";
 
@@ -15,10 +15,60 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-  document.addEventListener("contextmenu", (e) => e.preventDefault()); // 우클릭 방지
-  document.addEventListener("selectstart", (e) => e.preventDefault()); // 드래그 선택 방지
-  document.addEventListener("copy", (e) => e.preventDefault()); // 복사 방지
-  document.addEventListener("dragstart", (e) => e.preventDefault()); // 드래그 방지
+  const [isBlocked, setIsBlocked] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      if (window.innerWidth < 1280) setIsBlocked(true);
+      else setIsBlocked(false);
+    };
+
+    // 초기 체크
+    checkScreenSize();
+
+    // 창 크기 변경 시 체크
+    window.addEventListener("resize", checkScreenSize);
+
+    return () => window.removeEventListener("resize", checkScreenSize);
+  }, []);
+
+  // 기존 우클릭/복사/드래그 방지
+  useEffect(() => {
+    const preventDefault = (e) => e.preventDefault();
+    document.addEventListener("contextmenu", preventDefault);
+    document.addEventListener("selectstart", preventDefault);
+    document.addEventListener("copy", preventDefault);
+    document.addEventListener("dragstart", preventDefault);
+
+    return () => {
+      document.removeEventListener("contextmenu", preventDefault);
+      document.removeEventListener("selectstart", preventDefault);
+      document.removeEventListener("copy", preventDefault);
+      document.removeEventListener("dragstart", preventDefault);
+    };
+  }, []);
+
+  if (isBlocked) {
+    return (
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#f8d7da",
+          color: "#721c24",
+          fontSize: "20px",
+          fontWeight: "bold",
+          textAlign: "center",
+        }}>
+        화면 크기가 작아 접속할 수 없습니다.
+        <br />
+        PC 데스크톱 환경에서 이용해주세요.
+      </div>
+    );
+  }
 
   return (
     <>
@@ -40,7 +90,6 @@ function App() {
             </Layout>
           }
         />
-
         <Route
           path="/list"
           element={
@@ -49,7 +98,6 @@ function App() {
             </Layout>
           }
         />
-
         <Route
           path="/dashboard/:studentId"
           element={
@@ -58,7 +106,6 @@ function App() {
             </Layout>
           }
         />
-
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
