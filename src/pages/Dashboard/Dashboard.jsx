@@ -1,4 +1,3 @@
-// src/Dashboard.jsx
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { useNavigate, useParams } from "react-router-dom";
@@ -89,12 +88,14 @@ function Dashboard() {
 
   const [weeklySolvedData, setWeeklySolvedData] = useState([]);
 
-  const API_BASE = import.meta.env.VITE_REACT_APP_API_BASE_URL;
+  const MEMBER_API_URL = "/data/members.json";
+  const WEEKLY_API_URL = "/data/weekly_solved.json";
 
+  // 학생 기본 정보 가져오기
   useEffect(() => {
     const fetchStudentInfo = async () => {
       try {
-        const res = await fetch(`${API_BASE}/member`);
+        const res = await fetch(MEMBER_API_URL);
         const data = await res.json();
         const foundStudent = data.list.find(
           (member) => member.student_no === parseInt(studentId)
@@ -107,49 +108,48 @@ function Dashboard() {
       }
     };
     fetchStudentInfo();
-  }, [studentId, API_BASE]);
+  }, [studentId]);
 
+  // 주간 풀이 현황 가져오기 (이번 주 기준: 일~토)
   useEffect(() => {
     const fetchWeeklySolved = async () => {
       try {
-        const res = await fetch(`${API_BASE}/weekly_solved`);
+        const res = await fetch(WEEKLY_API_URL);
         const data = await res.json();
-        const foundWeeklyData = data.list.find((item) => item.id === studentInfo.id);
 
-        if (foundWeeklyData) {
+        if (studentInfo.id !== "NON") {
+          const foundWeeklyData = data.list.find((item) => item.id === studentInfo.id);
+
           const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+          // 이번 주 일요일 계산
           const today = new Date();
+          const sunday = new Date(today);
+          sunday.setDate(today.getDate() - today.getDay());
+
+          // 이번 주 날짜 배열 생성 (일~토)
           const dates = Array.from({ length: 7 }, (_, i) => {
-            const d = new Date(today);
-            d.setDate(today.getDate() - ((today.getDay() - i + 7) % 7));
+            const d = new Date(sunday);
+            d.setDate(sunday.getDate() + i);
             return `${d.getMonth() + 1}/${d.getDate()}`;
           });
 
           const chartData = days.map((day, index) => ({
             date: dates[index],
-            solvedCount: foundWeeklyData[day] !== -1 ? foundWeeklyData[day] : 0,
+            solvedCount: foundWeeklyData?.[day] !== -1 ? foundWeeklyData[day] : 0,
           }));
+
           setWeeklySolvedData(chartData);
-        } else {
-          setWeeklySolvedData(
-            Array.from({ length: 7 }, (_, i) => {
-              const d = new Date();
-              d.setDate(d.getDate() - ((d.getDay() - i + 7) % 7));
-              return {
-                date: `${d.getMonth() + 1}/${d.getDate()}`,
-                solvedCount: 0,
-              };
-            })
-          );
         }
       } catch (err) {
         console.error("Failed to fetch weekly solved data", err);
       }
     };
+
     if (studentInfo.id !== "NON") {
       fetchWeeklySolved();
     }
-  }, [studentInfo.id, API_BASE]);
+  }, [studentInfo.id]);
 
   const data = {
     labels: weeklySolvedData.map((d) => d.date),
@@ -170,50 +170,25 @@ function Dashboard() {
     responsive: true,
     maintainAspectRatio: false,
     plugins: {
-      legend: {
-        display: false,
-      },
-      tooltip: {
-        enabled: false,
-      },
+      legend: { display: false },
+      tooltip: { enabled: false },
     },
     scales: {
       x: {
         grid: {
           display: true,
           drawBorder: false,
-          color: (context) => {
-            if (context.index === 6) {
-              return "#E6E8EA";
-            }
-            return "rgba(0, 0, 0, 0)";
-          },
-          borderDash: (context) => {
-            if (context.index === 6) {
-              return [5, 5];
-            }
-            return [];
-          },
+          color: (context) => (context.index === 6 ? "#E6E8EA" : "rgba(0,0,0,0)"),
+          borderDash: (context) => (context.index === 6 ? [5, 5] : []),
         },
-        ticks: {
-          display: false,
-        },
+        ticks: { display: false },
       },
       y: {
         max: 14,
         min: 0,
         beginAtZero: true,
-        ticks: {
-          stepSize: 2,
-          color: "#CDD1D5",
-          font: {
-            size: 18,
-          },
-        },
-        grid: {
-          drawBorder: false,
-          color: "#E6E8EA",
-        },
+        ticks: { stepSize: 2, color: "#CDD1D5", font: { size: 18 } },
+        grid: { drawBorder: false, color: "#E6E8EA" },
       },
     },
   };
@@ -238,7 +213,7 @@ function Dashboard() {
             <ChartLabels>
               {weeklySolvedData.map((d, index) => (
                 <DayLabel key={index}>
-                  <DateText isToday={index === weeklySolvedData.length - 1}>
+                  <DateText isSunday={index === 0} isSaturday={index === 6}>
                     {d.date}
                   </DateText>
                   <CountText>{d.solvedCount}개</CountText>
@@ -254,7 +229,13 @@ function Dashboard() {
           </Card>
           <Card>
             <CardTitle>solved.ac 랭크</CardTitle>
-            <CardContent style={{ display: "flex", alignItems: "center", gap: "8px", flexDirection: "row" }}>
+            <CardContent
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                flexDirection: "row",
+              }}>
               <img
                 src={`https://d2gd6pc034wcta.cloudfront.net/tier/${studentInfo.tier}.svg`}
                 alt="tier"
@@ -266,7 +247,6 @@ function Dashboard() {
           <Card>
             <CardTitle>Total</CardTitle>
             <CardContent>{studentInfo.solved_total}개</CardContent>
-            <p></p>
             <CardTitle style={{ marginTop: "8px" }}>Today</CardTitle>
             <CardContent>{studentInfo.solved_today}개</CardContent>
           </Card>
