@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate import
-import { BoardItemContainer, Cell } from "./boardItem.styles";
+import { BoardItemContainer, Cell, Cell2 } from "./boardItem.styles";
 
 function BoardItem({
   studentId,
@@ -20,15 +20,13 @@ function BoardItem({
 
   return (
     <BoardItemContainer>
-      <Cell width="55px" onClick={handleItemClick} style={{ cursor: "pointer" }}>
+      <Cell2 width="55px" onClick={handleItemClick}>
         {studentId}
-      </Cell>
-      <Cell width="80px" onClick={handleItemClick} style={{ cursor: "pointer" }}>
+      </Cell2>
+      <Cell2 width="80px" onClick={handleItemClick}>
         {name}
-      </Cell>
-      <Cell width="170px" onClick={handleItemClick} style={{ cursor: "pointer" }}>
-        {baekjoonId}
-      </Cell>
+      </Cell2>
+      <Cell width="170px">{baekjoonId}</Cell>
       <Cell width="90px">{solvedAc}</Cell>
       <Cell width="70px">{total}개</Cell>
       <Cell width="45px">{accuracy}%</Cell>
