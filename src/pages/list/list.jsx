@@ -60,7 +60,6 @@ function List() {
 
   const [data, setData] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
-  // const API_BASE = import.meta.env.VITE_REACT_APP_API_BASE_URL; // 실제 서비스 url
 
   const API_BASE = "/data/members.json";
 
@@ -78,15 +77,23 @@ function List() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
+        console.log("[fetchAllData] Fetching from:", API_BASE);
         const res = await fetch(API_BASE);
         if (!res.ok) {
+          console.warn("[fetchAllData] Response not OK", res.status);
           setData([]);
           return;
         }
         const apiData = await res.json();
+        console.log("[fetchAllData] Raw API Data:", apiData);
+
         setData(Array.isArray(apiData.list) ? apiData.list : []);
+        console.log(
+          "[fetchAllData] Parsed Data:",
+          Array.isArray(apiData.list) ? apiData.list : []
+        );
       } catch (err) {
-        console.error(err);
+        console.error("[fetchAllData] Error:", err);
         setData([]);
       }
     };
@@ -95,6 +102,14 @@ function List() {
 
   // 검색 및 필터링 로직
   useEffect(() => {
+    console.group("[Filtering Logic]");
+    console.log("원본 데이터(data):", data);
+    console.log("검색어(searchTerm):", searchTerm);
+    console.log("검색 타입(searchType):", searchType);
+    console.log("학년(grade):", grade);
+    console.log("반(classNum):", classNum);
+    console.log("제출 상태(submissionStatus):", submissionStatus);
+
     let result = data;
 
     if (grade) {
@@ -102,18 +117,22 @@ function List() {
       result = result.filter(
         (item) => Math.floor(item.student_no / 1000) === studentGrade
       );
+      console.log("학년 필터링 결과:", result);
     }
     if (classNum) {
       const studentClass = parseInt(classNum, 10);
       result = result.filter(
         (item) => Math.floor((item.student_no % 1000) / 100) === studentClass
       );
+      console.log("반 필터링 결과:", result);
     }
 
     if (submissionStatus === "제출") {
       result = result.filter((item) => item.solved_today > 0);
+      console.log("제출 필터링 결과:", result);
     } else if (submissionStatus === "미제출") {
       result = result.filter((item) => item.solved_today === 0);
+      console.log("미제출 필터링 결과:", result);
     }
 
     if (searchTerm) {
@@ -126,12 +145,16 @@ function List() {
         }
         return true;
       });
+      console.log("검색어 적용 결과:", result);
     }
 
     setFilteredItems(result);
+    console.log("최종 filteredItems:", result);
+    console.groupEnd();
   }, [data, searchTerm, searchType, grade, classNum, submissionStatus]);
 
   const handleReset = () => {
+    console.log("[handleReset] Resetting all filters & search");
     setSearchTerm("");
     setSearchType("학번");
     setGrade("");
@@ -160,7 +183,10 @@ function List() {
                 name="searchType"
                 value="학번"
                 checked={searchType === "학번"}
-                onChange={(e) => setSearchType(e.target.value)}
+                onChange={(e) => {
+                  console.log("[SearchType Changed] 학번");
+                  setSearchType(e.target.value);
+                }}
               />
               학번
             </RadioLabel>
@@ -170,7 +196,10 @@ function List() {
                 name="searchType"
                 value="이름"
                 checked={searchType === "이름"}
-                onChange={(e) => setSearchType(e.target.value)}
+                onChange={(e) => {
+                  console.log("[SearchType Changed] 이름");
+                  setSearchType(e.target.value);
+                }}
               />
               이름
             </RadioLabel>
@@ -180,7 +209,10 @@ function List() {
               type="text"
               placeholder="내용을 입력하세요"
               value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+              onChange={(e) => {
+                console.log("[SearchTerm Changed]", e.target.value);
+                setSearchTerm(e.target.value);
+              }}
             />
             <SearchIcon>
               <img src={icon1} alt="icon" style={{ width: "auto", height: "100%" }} />
@@ -193,17 +225,23 @@ function List() {
           <FilterSelect
             id="grade"
             value={grade}
-            onChange={(e) => setGrade(e.target.value)}>
+            onChange={(e) => {
+              console.log("[Grade Changed]", e.target.value);
+              setGrade(e.target.value);
+            }}>
             <option value="">선택해주세요.</option>
             <option value="1">1학년</option>
-            <option value="2">2학년</option>
-            <option value="3">3학년</option>
+            {/* <option value="2">2학년</option> */}
+            {/* <option value="3">3학년</option> */}
           </FilterSelect>
           <FilterLabel htmlFor="classNum">반</FilterLabel>
           <FilterSelect
             id="classNum"
             value={classNum}
-            onChange={(e) => setClassNum(e.target.value)}>
+            onChange={(e) => {
+              console.log("[ClassNum Changed]", e.target.value);
+              setClassNum(e.target.value);
+            }}>
             <option value="">선택해주세요.</option>
             <option value="1">1반</option>
             <option value="2">2반</option>
@@ -218,7 +256,10 @@ function List() {
                 name="submissionStatus"
                 value="제출"
                 checked={submissionStatus === "제출"}
-                onChange={(e) => setSubmissionStatus(e.target.value)}
+                onChange={(e) => {
+                  console.log("[SubmissionStatus Changed] 제출");
+                  setSubmissionStatus(e.target.value);
+                }}
               />
               제출
             </RadioLabel>
@@ -228,7 +269,10 @@ function List() {
                 name="submissionStatus"
                 value="미제출"
                 checked={submissionStatus === "미제출"}
-                onChange={(e) => setSubmissionStatus(e.target.value)}
+                onChange={(e) => {
+                  console.log("[SubmissionStatus Changed] 미제출");
+                  setSubmissionStatus(e.target.value);
+                }}
               />
               미제출
             </RadioLabel>
@@ -236,7 +280,11 @@ function List() {
           <ResetButton onClick={handleReset}>초기화</ResetButton>
         </SectionContainer>
         <SectionContainer>
-          <ExcelButton onClick={() => downloadExcel(filteredItems)}>
+          <ExcelButton
+            onClick={() => {
+              console.log("[Excel Download] Items:", filteredItems);
+              downloadExcel(filteredItems);
+            }}>
             Excel Download
           </ExcelButton>
         </SectionContainer>

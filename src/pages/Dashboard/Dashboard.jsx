@@ -74,6 +74,7 @@ function Dashboard() {
 
   const navigate = useNavigate();
   const { studentId } = useParams();
+  console.log("[Dashboard] 현재 URL 파라미터 studentId:", studentId);
 
   const [studentInfo, setStudentInfo] = useState({
     student_no: "0000",
@@ -94,14 +95,22 @@ function Dashboard() {
   // 학생 기본 정보 가져오기
   useEffect(() => {
     const fetchStudentInfo = async () => {
+      console.log("[fetchStudentInfo] 호출됨");
       try {
         const res = await fetch(MEMBER_API_URL);
         const data = await res.json();
+        console.log("[fetchStudentInfo] members.json 응답:", data);
+
         const foundStudent = data.list.find(
           (member) => member.student_no === parseInt(studentId)
         );
+        console.log("[fetchStudentInfo] 찾은 학생 데이터:", foundStudent);
+
         if (foundStudent) {
           setStudentInfo(foundStudent);
+          console.log("[fetchStudentInfo] studentInfo 업데이트 완료");
+        } else {
+          console.warn("[fetchStudentInfo] 해당 학번 학생을 찾을 수 없음:", studentId);
         }
       } catch (err) {
         console.error("Failed to fetch student info", err);
@@ -110,36 +119,40 @@ function Dashboard() {
     fetchStudentInfo();
   }, [studentId]);
 
-  // 주간 풀이 현황 가져오기 (이번 주 기준: 일~토)
+  // 주간 풀이 현황 가져오기
   useEffect(() => {
     const fetchWeeklySolved = async () => {
+      console.log("[fetchWeeklySolved] 호출됨, studentInfo.id:", studentInfo.id);
       try {
         const res = await fetch(WEEKLY_API_URL);
         const data = await res.json();
+        console.log("[fetchWeeklySolved] weekly_solved.json 응답:", data);
 
         if (studentInfo.id !== "NON") {
           const foundWeeklyData = data.list.find((item) => item.id === studentInfo.id);
+          console.log("[fetchWeeklySolved] 해당 학생 주간 데이터:", foundWeeklyData);
 
           const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-          // 이번 주 일요일 계산
           const today = new Date();
           const sunday = new Date(today);
           sunday.setDate(today.getDate() - today.getDay());
 
-          // 이번 주 날짜 배열 생성 (일~토)
           const dates = Array.from({ length: 7 }, (_, i) => {
             const d = new Date(sunday);
             d.setDate(sunday.getDate() + i);
             return `${d.getMonth() + 1}/${d.getDate()}`;
           });
+          console.log("[fetchWeeklySolved] 이번주 날짜 배열:", dates);
 
           const chartData = days.map((day, index) => ({
             date: dates[index],
             solvedCount: foundWeeklyData?.[day] !== -1 ? foundWeeklyData[day] : 0,
           }));
+          console.log("[fetchWeeklySolved] 차트 데이터:", chartData);
 
           setWeeklySolvedData(chartData);
+          console.log("[fetchWeeklySolved] weeklySolvedData 업데이트 완료");
         }
       } catch (err) {
         console.error("Failed to fetch weekly solved data", err);
@@ -165,6 +178,7 @@ function Dashboard() {
       },
     ],
   };
+  console.log("[Dashboard] 차트 data 객체:", data);
 
   const options = {
     responsive: true,
