@@ -23,3 +23,13 @@ export const Cell = styled.div`
   white-space: nowrap;
   width: ${({ width }) => width || "auto"};
 `;
+
+export const Cell2 = styled.div`
+  text-align: center;
+  white-space: nowrap;
+  width: ${({ width }) => width || "auto"};
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
