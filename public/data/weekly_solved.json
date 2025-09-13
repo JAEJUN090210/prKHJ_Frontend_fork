@@ -1,7 +1,7 @@
 {
   "list": [
-    { "id": "user_1101", "Sun": 2, "Mon": 1, "Tue": 3, "Wed": 0, "Thu": 1, "Fri": 2, "Sat": 1 },
-    { "id": "user_1102", "Sun": 1, "Mon": 0, "Tue": 2, "Wed": 1, "Thu": 3, "Fri": 0, "Sat": 1 },
+    { "id": "user_1101", "Sun": 2, "Mon": 1, "Tue": 3, "Wed": 0, "Thu": 1, "Fri": 2, "Sat": 0 },
+    { "id": "user_1102", "Sun": 1, "Mon": 0, "Tue": 5, "Wed": 0, "Thu": 0, "Fri": 0, "Sat": 0 },
     { "id": "user_1103", "Sun": 0, "Mon": 0, "Tue": 0, "Wed": 0, "Thu": 0, "Fri": 0, "Sat": 0 },
     { "id": "user_1104", "Sun": 3, "Mon": 2, "Tue": 4, "Wed": 3, "Thu": 1, "Fri": 2, "Sat": 5 },
     { "id": "user_1105", "Sun": 1, "Mon": 1, "Tue": 0, "Wed": 0, "Thu": 0, "Fri": 0, "Sat": 0 },
