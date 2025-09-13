@@ -106,7 +106,15 @@ function App() {
             </Layout>
           }
         />
-        <Route path="*" element={<NotFound />} />
+
+        <Route
+          path="*"
+          element={
+            <Layout>
+              <NotFound />
+            </Layout>
+          }
+        />
       </Routes>
     </>
   );

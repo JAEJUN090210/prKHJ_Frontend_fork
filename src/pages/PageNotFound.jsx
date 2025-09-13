@@ -2,6 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import colors from "../styles/colors_system";
+import P1 from "../assets/404.svg";
+import P2 from "../assets/Go home.svg";
 
 const NotFound = () => {
   const navigate = useNavigate();
@@ -11,62 +13,48 @@ const NotFound = () => {
   };
 
   return (
-    <ErrorPageContainer>
-      <ErrorCode>404</ErrorCode>
-      <ErrorTitle>Page Not Found</ErrorTitle>
-      <ErrorMessage>죄송합니다. 요청하신 페이지를 찾을 수 없습니다.</ErrorMessage>
-      <GoHomeButton onClick={handleGoHome}>홈으로 돌아가기</GoHomeButton>
-    </ErrorPageContainer>
+    <Wrapper>
+      <ErrorImage src={P1} alt="404" />
+      <HomeButton src={P2} alt="Go Home Button" onClick={handleGoHome} />
+    </Wrapper>
   );
 };
 
 export default NotFound;
 
-const ErrorPageContainer = styled.div`
-  font-family: "Pretendard GOV", sans-serif;
-  font-weight: 700;
+/* ──────────────── 스타일 ──────────────── */
+export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  text-align: center;
-  background-color: ${colors.gray[900]};
+  height: 817px;
+  background-color: ${colors.gray[100]};
+  gap: 90px;
 `;
 
-const ErrorCode = styled.h1`
-  font-size: 10rem;
-  font-weight: 700;
-  color: ${colors.danger[500]};
-  margin: 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+const ErrorImage = styled.img`
+  width: 1000px;
+  max-width: 80%;
+  height: auto;
 `;
 
-const ErrorTitle = styled.h2`
-  font-size: 2.5rem;
-  margin-top: 1rem;
-  color: ${colors.gray[50]};
-`;
-
-const ErrorMessage = styled.p`
-  font-size: 1.25rem;
-  color: ${colors.gray[400]};
-  margin-top: 0.5rem;
-`;
-
-const GoHomeButton = styled.p`
-  margin-top: 15rem;
-  font-size: 2rem;
-  color: ${colors.gray[50]};
+const HomeButton = styled.img`
+  width: 270px;
+  max-width: 60%;
+  height: auto;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
 
   &:hover {
-    transform: translateY(-8px);
-    color: ${colors.text.primary};
+    transform: scale(1.05);
+    opacity: 0.9;
   }
 
   &:active {
-    transform: translateY(0);
+    transform: scale(0.95);
+    opacity: 0.8;
   }
 `;
