@@ -213,7 +213,7 @@ function Dashboard() {
             <ChartLabels>
               {weeklySolvedData.map((d, index) => (
                 <DayLabel key={index}>
-                  <DateText isSunday={index === 0} isSaturday={index === 6}>
+                  <DateText $isSunday={index === 0} $isSaturday={index === 6}>
                     {d.date}
                   </DateText>
                   <CountText>{d.solvedCount}개</CountText>

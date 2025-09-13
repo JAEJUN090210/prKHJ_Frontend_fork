@@ -98,14 +98,14 @@ export const DateText = styled.span`
   margin-bottom: 4px;
 
   ${(props) =>
-    props.isSunday &&
+    props.$isSunday &&
     `
     color: ${colors.danger[400]}; /* 일요일 빨간색 */
     font-weight: 700;
   `}
 
   ${(props) =>
-    props.isSaturday &&
+    props.$isSaturday &&
     `
     color: ${colors.primary[400]}; /* 토요일 파란색 */
     font-weight: 700;
