@@ -4,6 +4,8 @@ import "../../styles/reset.css";
 import icon1 from "../../assets/search_icon.png";
 import { downloadExcel } from "./down";
 import BoardList from "../../components/boardList/boardList";
+import InfoTooltip from "../../components/Tooltip/Tooltip";
+import { Info } from "lucide-react";
 import {
   Content,
   BoardContainer,
@@ -162,10 +164,42 @@ function List() {
     setSubmissionStatus("");
   };
 
+  const getTodayString = () => {
+    // 현재 UTC 시간
+    const now = new Date();
+
+    // 한국 시간 (UTC+9)
+    const kst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
+
+    // 오전 5시 기준 비교
+    const kstHour = kst.getHours();
+    let displayDate = new Date(kst);
+
+    if (kstHour < 5) {
+      // 오전 5시 이전이면 하루를 빼서 어제로 처리
+      displayDate.setDate(displayDate.getDate() - 1);
+    }
+
+    const year = displayDate.getFullYear();
+    const month = String(displayDate.getMonth() + 1).padStart(2, "0");
+    const day = String(displayDate.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+  };
+
   return (
     <Content>
       <BoardContainer>
-        <BoardTitle>List</BoardTitle>
+        <BoardTitle>
+          List{" "}
+          <InfoTooltip
+            text={`마지막 업데이트: ${getTodayString()} 05:00(KST)`}
+            position="top">
+            <span>
+              <Info size={18} />
+            </span>
+          </InfoTooltip>
+        </BoardTitle>
         <BoardList
           items={filteredItems.map((item) => ({
             ...item,
@@ -248,7 +282,16 @@ function List() {
             <option value="3">3반</option>
             <option value="4">4반</option>
           </FilterSelect>
-          <FilterLabel>과제 제출 여부</FilterLabel>
+          <FilterLabel>
+            과제 제출 여부{" "}
+            <InfoTooltip
+              text="오늘 코테를 1개 이상 풀면 과제 제출로 기록됩니다."
+              position="top">
+              <span>
+                <Info size={16} />
+              </span>
+            </InfoTooltip>
+          </FilterLabel>
           <RadioGroup>
             <RadioLabel>
               <input
@@ -280,10 +323,25 @@ function List() {
           <ResetButton onClick={handleReset}>초기화</ResetButton>
         </SectionContainer>
         <SectionContainer>
+          <FilterLabel>
+            Excel Download{" "}
+            <InfoTooltip
+              text="다운로드 시 현재 적용된 검색 및 필터 상태가 반영됩니다."
+              position="top">
+              <span>
+                <Info size={16} />
+              </span>
+            </InfoTooltip>
+          </FilterLabel>
           <ExcelButton
             onClick={() => {
               console.log("[Excel Download] Items:", filteredItems);
-              downloadExcel(filteredItems);
+              // tierName을 포함한 데이터 전달
+              const excelData = filteredItems.map((item) => ({
+                ...item,
+                tierName: tierMap[item.tier] || "Unknown",
+              }));
+              downloadExcel(excelData);
             }}>
             Excel Download
           </ExcelButton>

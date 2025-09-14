@@ -51,7 +51,7 @@ export const SectionContainer = styled.div`
 export const SectionTitle = styled.h2`
   font-family: "Pretendard GOV", sans-serif;
   font-weight: 700;
-  font-size: 26px;
+  font-size: 23px;
 
   color: ${colors.text.basic};
   margin-bottom: 16px;

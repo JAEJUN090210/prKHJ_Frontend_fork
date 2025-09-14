@@ -155,6 +155,20 @@ export const CardContent = styled.div`
   justify-content: center;
 `;
 
+export const CardContent2 = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  color: ${colors.text.basic};
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
+
 export const Button = styled.button`
   width: 250px;
   background-color: ${colors.button.default};
