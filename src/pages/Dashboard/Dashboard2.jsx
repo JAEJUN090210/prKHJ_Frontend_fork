@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
 import { useNavigate, useParams } from "react-router-dom";
+import InfoTooltip from "../../components/Tooltip/Tooltip";
+import { Info } from "lucide-react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -29,6 +31,7 @@ import {
   Card,
   CardTitle,
   CardContent,
+  CardContent2,
   Button,
   SolvedACRank,
   Percent,
@@ -211,6 +214,10 @@ function Dashboard() {
     navigate("/list");
   };
 
+  const handleItemClick = () => {
+    window.open(`https://www.acmicpc.net/user/${studentInfo.id}`, "_blank");
+  };
+
   return (
     <Wrapper>
       <DashboardContainer>
@@ -238,8 +245,17 @@ function Dashboard() {
         </LeftSection>
         <RightSection>
           <Card>
-            <CardTitle>백준 ID</CardTitle>
-            <CardContent>{studentInfo.id}</CardContent>
+            <CardTitle>
+              백준 ID{" "}
+              <InfoTooltip
+                text="아이디를 클릭해 백준 사이트로 이동할 수 있습니다."
+                position="top">
+                <span>
+                  <Info size={16} />
+                </span>
+              </InfoTooltip>
+            </CardTitle>
+            <CardContent2 onClick={handleItemClick}>{studentInfo.id}</CardContent2>
           </Card>
           <Card>
             <CardTitle>solved.ac 랭크</CardTitle>
