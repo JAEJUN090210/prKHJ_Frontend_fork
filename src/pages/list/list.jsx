@@ -102,7 +102,7 @@ function List() {
     fetchAllData();
   }, []);
 
-  // 검색 및 필터링 로직
+
   useEffect(() => {
     console.group("[Filtering Logic]");
     console.log("원본 데이터(data):", data);
@@ -110,7 +110,7 @@ function List() {
     console.log("검색 타입(searchType):", searchType);
     console.log("학년(grade):", grade);
     console.log("반(classNum):", classNum);
-    console.log("제출 상태(submissionStatus):", submissionStatus);
+    console.log("풀이 상태(submissionStatus):", submissionStatus);
 
     let result = data;
 
@@ -129,12 +129,12 @@ function List() {
       console.log("반 필터링 결과:", result);
     }
 
-    if (submissionStatus === "제출") {
+    if (submissionStatus === "풀이") {
       result = result.filter((item) => item.solved_today > 0);
-      console.log("제출 필터링 결과:", result);
-    } else if (submissionStatus === "미제출") {
+      console.log("풀이 필터링 결과:", result);
+    } else if (submissionStatus === "미풀이") {
       result = result.filter((item) => item.solved_today === 0);
-      console.log("미제출 필터링 결과:", result);
+      console.log("미풀이 필터링 결과:", result);
     }
 
     if (searchTerm) {
@@ -243,6 +243,7 @@ function List() {
               type="text"
               placeholder="내용을 입력하세요"
               value={searchTerm}
+              maxLength={9}
               onChange={(e) => {
                 console.log("[SearchTerm Changed]", e.target.value);
                 setSearchTerm(e.target.value);
@@ -283,9 +284,9 @@ function List() {
             <option value="4">4반</option>
           </FilterSelect>
           <FilterLabel>
-            과제 제출 여부{" "}
+            일일 풀이 현황{" "}
             <InfoTooltip
-              text="오늘 코테를 1개 이상 풀면 과제 제출로 기록됩니다."
+              text="오늘 코딩 테스트를 풀었는지에 대한 여부입니다."
               position="top">
               <span>
                 <Info size={16} />
@@ -297,27 +298,27 @@ function List() {
               <input
                 type="radio"
                 name="submissionStatus"
-                value="제출"
-                checked={submissionStatus === "제출"}
+                value="풀이"
+                checked={submissionStatus === "풀이"}
                 onChange={(e) => {
-                  console.log("[SubmissionStatus Changed] 제출");
+                  console.log("[SubmissionStatus Changed] 풀이");
                   setSubmissionStatus(e.target.value);
                 }}
               />
-              제출
+              풀이
             </RadioLabel>
             <RadioLabel>
               <input
                 type="radio"
                 name="submissionStatus"
-                value="미제출"
-                checked={submissionStatus === "미제출"}
+                value="미풀이"
+                checked={submissionStatus === "미풀이"}
                 onChange={(e) => {
-                  console.log("[SubmissionStatus Changed] 미제출");
+                  console.log("[SubmissionStatus Changed] 미풀이");
                   setSubmissionStatus(e.target.value);
                 }}
               />
-              미제출
+              미풀이
             </RadioLabel>
           </RadioGroup>
           <ResetButton onClick={handleReset}>초기화</ResetButton>
