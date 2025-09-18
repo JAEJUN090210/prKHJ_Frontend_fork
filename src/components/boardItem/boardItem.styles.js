@@ -21,6 +21,9 @@ export const BoardItemContainer = styled.div`
 export const Cell = styled.div`
   text-align: center;
   white-space: nowrap;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   width: ${({ width }) => width || "auto"};
 `;
 
