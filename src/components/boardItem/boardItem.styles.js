@@ -21,9 +21,9 @@ export const BoardItemContainer = styled.div`
 export const Cell = styled.div`
   text-align: center;
   white-space: nowrap;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  // overflow: hidden;
+  // white-space: nowrap;
+  // text-overflow: ellipsis; // 백준 자체 아이디 글자 수 제한으로 필요
   width: ${({ width }) => width || "auto"};
 `;
 

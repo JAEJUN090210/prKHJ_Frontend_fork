@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 815px;
+  height: 827px;
   background-color: ${colors.gray[100]};
   font-family: "Pretendard GOV", sans-serif;
 `;

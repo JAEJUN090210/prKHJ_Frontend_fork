@@ -2,6 +2,8 @@ import { Routes, Route, Link } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import React, { useState, useEffect } from "react";
 
+import ScrollToTop from "./components/ScrollTop";
+
 import Layout from "./Layout";
 import Home from "./pages/home/home";
 import List from "./pages/list/list";
@@ -11,6 +13,9 @@ import NotFound from "./pages/PageNotFound";
 const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
+  }
+  body {
+    overflow-x: hidden;
   }
 `;
 
@@ -73,6 +78,8 @@ function App() {
   return (
     <>
       <GlobalStyle />
+      <ScrollToTop />
+
       <Routes>
         <Route
           path="/"

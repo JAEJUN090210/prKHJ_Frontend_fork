@@ -28,7 +28,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 817px;
+  height: 827px;
   background-color: ${colors.gray[100]};
   gap: 90px;
 `;

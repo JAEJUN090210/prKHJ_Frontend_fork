@@ -4,7 +4,7 @@ import colors from "../../styles/colors_system";
 /* ──────────────── 헤더 전체 래퍼 ──────────────── */
 export const HeaderWrapper = styled.header`
   width: 100%;
-  height: 85px;
+  height: 75px;
   padding: 5px 360px 12px;
   border-bottom: 1px solid #8a949e;
   background-color: ${colors.gray[50]};
