@@ -63,7 +63,9 @@ function List() {
   const [data, setData] = useState([]);
   const [filteredItems, setFilteredItems] = useState([]);
 
-  const API_BASE = "/data/members.json";
+  // const API_BASE = "/data/members.json"; // 테스트용 로컬 JSON 파일 경로
+  const API_env = import.meta.env.VITE_REACT_APP_API_BASE_URL;
+  const API_BASE = `${API_env}/member`; // 실제 API 엔드포인트
 
   const lerterror = () => {
     alert("해당 기능은 이용할 수 없습니다.\n추후 업데이트 예정입니다.");
@@ -79,7 +81,7 @@ function List() {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        console.log("[fetchAllData] Fetching from:", API_BASE);
+        // console.log("[fetchAllData] Fetching from:", API_BASE);
         const res = await fetch(API_BASE);
         if (!res.ok) {
           console.warn("[fetchAllData] Response not OK", res.status);
@@ -101,7 +103,6 @@ function List() {
     };
     fetchAllData();
   }, []);
-
 
   useEffect(() => {
     console.group("[Filtering Logic]");

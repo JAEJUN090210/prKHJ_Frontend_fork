@@ -92,8 +92,12 @@ function Dashboard() {
 
   const [weeklySolvedData, setWeeklySolvedData] = useState([]);
 
-  const MEMBER_API_URL = "/data/members.json";
-  const WEEKLY_API_URL = "/data/weekly_solved.json";
+  // const MEMBER_API_URL = "/data/members.json"; // 테스트용 로컬 JSON 파일 경로
+  // const WEEKLY_API_URL = "/data/weekly_solved.json"; // 테스트용 로컬 JSON 파일 경로
+
+  const API_env = import.meta.env.VITE_REACT_APP_API_BASE_URL;
+  const MEMBER_API_URL = `${API_env}/member`; // 실제 API 엔드포인트
+  const WEEKLY_API_URL = `${API_env}/weekly-solved`; // 실제 API 엔드포인트
 
   // 학생 기본 정보 가져오기
   useEffect(() => {
