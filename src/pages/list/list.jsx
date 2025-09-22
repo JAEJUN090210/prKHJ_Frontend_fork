@@ -166,21 +166,31 @@ function List() {
   };
 
   const getTodayString = () => {
-    // 현재 UTC 시간
+    // 현재 UTC → 한국 시간 변환
     const now = new Date();
-
-    // 한국 시간 (UTC+9)
     const kst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
 
-    // 오전 5시 기준 비교
+    // 업데이트 시각 목록 (KST 기준)
+    const updateHours = [8, 10, 12, 14, 16, 18, 20, 22];
+
     const kstHour = kst.getHours();
     let displayDate = new Date(kst);
+    let lastUpdateHour = null;
 
-    if (kstHour < 5) {
-      // 오전 5시 이전이면 하루를 빼서 어제로 처리
+    // 현재 시간보다 작거나 같은 가장 최근 업데이트 시각 찾기
+    for (let i = updateHours.length - 1; i >= 0; i--) {
+      if (kstHour >= updateHours[i]) {
+        lastUpdateHour = updateHours[i];
+        break;
+      }
+    }
+
+    // 오늘 안에 업데이트된 게 없다면 → 어제 마지막 업데이트(22시)를 기준으로
+    if (lastUpdateHour === null) {
       displayDate.setDate(displayDate.getDate() - 1);
     }
 
+    // YYYY-MM-DD 형식 반환
     const year = displayDate.getFullYear();
     const month = String(displayDate.getMonth() + 1).padStart(2, "0");
     const day = String(displayDate.getDate()).padStart(2, "0");
