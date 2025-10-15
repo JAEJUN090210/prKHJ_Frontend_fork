@@ -39,12 +39,14 @@ export const LogoText = styled.div`
   font-weight: 700;
   color: ${colors.text.primary};
   letter-spacing: 8px;
+  cursor: pointer;
 `;
 
 export const SubText = styled.div`
   font-size: 17px;
   color: ${colors.primary[300]};
   font-weight: 700;
+  cursor: pointer;
 `;
 
 /* ──────────────── 오른쪽 영역 (링크 + 네비게이션) ──────────────── */
@@ -67,6 +69,7 @@ export const TopLinks = styled.div`
     font-size: 15px;
     color: ${colors.text.basic};
     text-decoration: none;
+    cursor: pointer;
 
     &:hover {
       color: ${colors.text.border};
@@ -91,6 +94,7 @@ export const NavMenu = styled.nav`
     font-size: 18px;
     color: ${colors.text.basic};
     text-decoration: none;
+    cursor: pointer;
 
     &:hover {
       color: ${colors.text.border};

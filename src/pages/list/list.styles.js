@@ -125,6 +125,7 @@ export const SearchInput = styled.input`
   font-family: "Pretendard GOV", sans-serif;
   font-weight: 400;
   font-size: 17px;
+  cursor: text;
 
   width: 100%;
   border: none;
@@ -206,6 +207,7 @@ export const ExcelButton = styled(Button)`
   background-color: ${colors.button.default};
   color: ${colors.gray[0]};
   margin-top: 8px;
+  cursor: pointer;
 
   &:hover {
     background-color: ${colors.button.hover};
