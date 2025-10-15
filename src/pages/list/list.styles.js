@@ -126,9 +126,7 @@ export const SearchInput = styled.input`
   border: none;
   outline: none;
   color: ${colors.gray[500]};
-  &::placeholder {
-    color: ${colors.gray[400]};
-  }
+  background-color: transparent;
 `;
 
 export const SearchIcon = styled.span`

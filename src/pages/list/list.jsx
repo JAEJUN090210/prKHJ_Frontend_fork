@@ -6,6 +6,7 @@ import { downloadExcel } from "./down";
 import BoardList from "../../components/boardList/boardList";
 import InfoTooltip from "../../components/Tooltip/Tooltip";
 import { Info } from "lucide-react";
+import { SortASC, SortDESC } from "./sort";
 import {
   Content,
   BoardContainer,

@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // useNavigate import
-import { BoardItemContainer, Cell, Cell2 } from "./boardItem.styles";
+import { BoardItemContainer, Cell } from "./boardItem.styles";
 
 function BoardItem({
   studentId,
@@ -20,18 +20,14 @@ function BoardItem({
 
   return (
     <BoardItemContainer>
-      <Cell2 width="55px" onClick={handleItemClick}>
-        {studentId}
-      </Cell2>
-      <Cell2 width="80px" onClick={handleItemClick}>
-        {name}
-      </Cell2>
-      <Cell width="170px">{baekjoonId}</Cell>
-      <Cell width="90px">{solvedAc}</Cell>
-      <Cell width="70px">{total}개</Cell>
-      <Cell width="45px">{accuracy}%</Cell>
-      <Cell width="55px">{today}개</Cell>
-      <Cell width="60px">D+{streak}</Cell>
+      <Cell width="55px" onClick={handleItemClick}>{studentId}</Cell>
+      <Cell width="80px" onClick={handleItemClick}>{name}</Cell>
+      <Cell width="150px" onClick={handleItemClick}>{baekjoonId}</Cell>
+      <Cell width="75px" onClick={handleItemClick}>{solvedAc}</Cell>
+      <Cell width="70px" onClick={handleItemClick}>{total}개</Cell>
+      <Cell width="45px" onClick={handleItemClick}>{accuracy}%</Cell>
+      <Cell width="70px" onClick={handleItemClick}>{today}개</Cell>
+      <Cell width="60px" onClick={handleItemClick}>D+{streak}</Cell>
     </BoardItemContainer>
   );
 }

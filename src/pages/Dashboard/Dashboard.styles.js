@@ -1,5 +1,3 @@
-// src/Dashboard.styled.js
-
 import styled from "styled-components";
 import colors from "../../styles/colors_system";
 import { color } from "chart.js/helpers";
@@ -7,9 +5,10 @@ import { color } from "chart.js/helpers";
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   width: 100vw;
-  height: 827px;
+  height: 95vh;
+  padding-top: 25px;
   background-color: ${colors.gray[100]};
   font-family: "Pretendard GOV", sans-serif;
 `;

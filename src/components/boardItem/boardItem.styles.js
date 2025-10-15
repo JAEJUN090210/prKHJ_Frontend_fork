@@ -16,6 +16,12 @@ export const BoardItemContainer = styled.div`
   color: ${colors.text.basic};
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+
+  &:hover {
+    color: ${colors.primary[600]};
+    font-weight: 500;
+  }
 `;
 
 export const Cell = styled.div`
@@ -25,14 +31,4 @@ export const Cell = styled.div`
   // white-space: nowrap;
   // text-overflow: ellipsis; // 백준 자체 아이디 글자 수 제한으로 필요
   width: ${({ width }) => width || "auto"};
-`;
-
-export const Cell2 = styled.div`
-  text-align: center;
-  white-space: nowrap;
-  width: ${({ width }) => width || "auto"};
-  cursor: pointer;
-  &:hover {
-    text-decoration: underline;
-  }
 `;
