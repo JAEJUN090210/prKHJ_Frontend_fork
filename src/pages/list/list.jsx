@@ -178,6 +178,8 @@ function List() {
     setGrade("");
     setClassNum("");
     setSubmissionStatus("");
+    setSortKey("");
+    setSortOrder("asc");
   };
 
   const getTodayString = () => {

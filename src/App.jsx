@@ -9,6 +9,7 @@ import Home from "./pages/home/home";
 import List from "./pages/list/list";
 import Dashboard from "./pages/Dashboard/Dashboard2";
 import NotFound from "./pages/PageNotFound";
+import AboutDev from "./pages/about/aboutDev";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -110,6 +111,14 @@ function App() {
           element={
             <Layout>
               <Dashboard />
+            </Layout>
+          }
+        />
+        <Route
+          path="/aboutDev"
+          element={
+            <Layout>
+              <AboutDev />
             </Layout>
           }
         />

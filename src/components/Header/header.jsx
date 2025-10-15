@@ -43,7 +43,7 @@ const Header = () => {
             <Link to="/login">로그인</Link>
             <Divider>|</Divider>
             <Link to="/signup">회원가입</Link> */}
-            <Link onClick={lerterror}>About</Link>
+            <Link to="/aboutDev">About</Link>
             <Divider>|</Divider>
             <Link onClick={lerterror}>로그인</Link>
             <Divider>|</Divider>
