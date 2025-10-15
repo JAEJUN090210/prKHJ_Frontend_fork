@@ -7,7 +7,7 @@ import ScrollToTop from "./components/ScrollTop";
 import Layout from "./Layout";
 import Home from "./pages/home/home";
 import List from "./pages/list/list";
-import Dashboard from "./pages/Dashboard/Dashboard2"; // 테스트용
+import Dashboard from "./pages/Dashboard/Dashboard2";
 import NotFound from "./pages/PageNotFound";
 
 const GlobalStyle = createGlobalStyle`
@@ -113,7 +113,14 @@ function App() {
             </Layout>
           }
         />
-
+        <Route
+          path="/NotFound"
+          element={
+            <Layout>
+              <NotFound />
+            </Layout>
+          }
+        />
         <Route
           path="*"
           element={

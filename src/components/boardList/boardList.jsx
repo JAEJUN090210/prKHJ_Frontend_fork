@@ -7,11 +7,11 @@ function BoardList({ items }) {
       <BoardListHeader>
         <BoardListTitle style={{ width: "55px" }}>학번</BoardListTitle>
         <BoardListTitle style={{ width: "80px" }}>이름</BoardListTitle>
-        <BoardListTitle style={{ width: "170px" }}>백준 아이디</BoardListTitle>
-        <BoardListTitle style={{ width: "90px" }}>solved.ac</BoardListTitle>
-        <BoardListTitle style={{ width: "70px" }}>Total</BoardListTitle>
+        <BoardListTitle style={{ width: "150px" }}>백준 아이디</BoardListTitle>
+        <BoardListTitle style={{ width: "75px" }}>티어</BoardListTitle>
+        <BoardListTitle style={{ width: "70px" }}>총 풀이</BoardListTitle>
         <BoardListTitle style={{ width: "45px" }}>정답률</BoardListTitle>
-        <BoardListTitle style={{ width: "55px" }}>Today</BoardListTitle>
+        <BoardListTitle style={{ width: "70px" }}>일일 풀이</BoardListTitle>
         <BoardListTitle style={{ width: "60px" }}>연속일수</BoardListTitle>
       </BoardListHeader>
 

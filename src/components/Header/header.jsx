@@ -51,7 +51,7 @@ const Header = () => {
           </TopLinks>
 
           <NavMenu>
-            <Link to="/list">데이터 조회</Link>
+            <Link to="/list">풀이 현황</Link>
             <Link onClick={lerterror}>학생 등록</Link>
             <Link onClick={lerterror}>학생 삭제</Link>
           </NavMenu>

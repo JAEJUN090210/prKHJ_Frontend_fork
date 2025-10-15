@@ -24,6 +24,10 @@ export const BoardContainer = styled.div`
 `;
 
 export const BoardTitle = styled.h1`
+  flex-direction: row;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-family: "Pretendard GOV", sans-serif;
   font-weight: 700;
   font-size: 28px;
@@ -103,12 +107,12 @@ export const RadioLabel = styled.label`
 `;
 
 export const SearchInputContainer = styled.div`
-  position: relative;
   display: flex;
   align-items: center;
-  border: 1px solid #ddd;
+  border: 1px solid ${colors.gray[300]};
   border-radius: 8px;
   padding: 0 12px;
+  width: 235px;
   height: 45px;
 
   &:focus-within {
@@ -126,9 +130,7 @@ export const SearchInput = styled.input`
   border: none;
   outline: none;
   color: ${colors.gray[500]};
-  &::placeholder {
-    color: ${colors.gray[400]};
-  }
+  background-color: transparent;
 `;
 
 export const SearchIcon = styled.span`

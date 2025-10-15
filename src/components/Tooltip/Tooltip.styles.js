@@ -30,7 +30,7 @@ export const TooltipBox = styled.div`
     css`
       bottom: 100%;
       left: 50%;
-      margin-bottom: 7px;
+      margin-bottom: 10px;
     `}
   ${({ $position }) =>
     $position === "bottom" &&

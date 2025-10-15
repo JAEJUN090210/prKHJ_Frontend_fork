@@ -6,6 +6,7 @@ import { downloadExcel } from "./down";
 import BoardList from "../../components/boardList/boardList";
 import InfoTooltip from "../../components/Tooltip/Tooltip";
 import { Info } from "lucide-react";
+import { SortASC, SortDESC } from "./sort";
 import {
   Content,
   BoardContainer,
@@ -76,6 +77,8 @@ function List() {
   const [grade, setGrade] = useState("");
   const [classNum, setClassNum] = useState("");
   const [submissionStatus, setSubmissionStatus] = useState("");
+  const [sortKey, setSortKey] = useState(""); // 선택한 정렬 기준
+  const [sortOrder, setSortOrder] = useState("asc"); // asc | desc
 
   // API에서 데이터 가져오기
   useEffect(() => {
@@ -105,56 +108,68 @@ function List() {
   }, []);
 
   useEffect(() => {
-    console.group("[Filtering Logic]");
+    console.group("[Filtering & Sorting Logic]");
     console.log("원본 데이터(data):", data);
-    console.log("검색어(searchTerm):", searchTerm);
-    console.log("검색 타입(searchType):", searchType);
-    console.log("학년(grade):", grade);
-    console.log("반(classNum):", classNum);
-    console.log("풀이 상태(submissionStatus):", submissionStatus);
 
-    let result = data;
+    let result = [...data];
 
+    // --- 필터링 ---
     if (grade) {
       const studentGrade = parseInt(grade, 10);
       result = result.filter(
         (item) => Math.floor(item.student_no / 1000) === studentGrade
       );
-      console.log("학년 필터링 결과:", result);
     }
     if (classNum) {
       const studentClass = parseInt(classNum, 10);
       result = result.filter(
         (item) => Math.floor((item.student_no % 1000) / 100) === studentClass
       );
-      console.log("반 필터링 결과:", result);
     }
-
     if (submissionStatus === "풀이") {
       result = result.filter((item) => item.solved_today > 0);
-      console.log("풀이 필터링 결과:", result);
     } else if (submissionStatus === "미풀이") {
       result = result.filter((item) => item.solved_today === 0);
-      console.log("미풀이 필터링 결과:", result);
     }
 
-    if (searchTerm) {
-      const normalizedSearchTerm = searchTerm.toLowerCase();
-      result = result.filter((item) => {
-        if (searchType === "학번") {
-          return String(item.student_no).includes(normalizedSearchTerm);
-        } else if (searchType === "이름") {
-          return item.name.toLowerCase().includes(normalizedSearchTerm);
-        }
-        return true;
-      });
-      console.log("검색어 적용 결과:", result);
+    const normalizedSearchTerm = searchTerm.trim();
+    const isStudentNo = /^[0-9]+$/.test(normalizedSearchTerm);
+
+    result = result.filter((item) => {
+      if (!normalizedSearchTerm) return true;
+      if (isStudentNo) return String(item.student_no).includes(normalizedSearchTerm);
+      return item.name.toLowerCase().includes(normalizedSearchTerm.toLowerCase());
+    });
+
+    // --- 정렬 ---
+    if (sortKey) {
+      console.group(`[Sorting] Key: ${sortKey}, Order: ${sortOrder}`);
+      console.log(
+        "정렬 전 데이터:",
+        result.map((item) => ({
+          name: item.name,
+          tier: item.tier,
+          solved_today: item.solved_today,
+        }))
+      );
+
+      result = sortOrder === "asc" ? SortASC(result, sortKey) : SortDESC(result, sortKey);
+
+      console.log(
+        "정렬 후 데이터:",
+        result.map((item) => ({
+          name: item.name,
+          tier: item.tier,
+          solved_today: item.solved_today,
+        }))
+      );
+      console.groupEnd();
     }
 
     setFilteredItems(result);
     console.log("최종 filteredItems:", result);
     console.groupEnd();
-  }, [data, searchTerm, searchType, grade, classNum, submissionStatus]);
+  }, [data, searchTerm, grade, classNum, submissionStatus, sortKey, sortOrder]);
 
   const handleReset = () => {
     console.log("[handleReset] Resetting all filters & search");
@@ -202,68 +217,94 @@ function List() {
     <Content>
       <BoardContainer>
         <BoardTitle>
-          List{" "}
-          <InfoTooltip
-            text={`마지막 업데이트: ${getTodayString()} 05:00(KST)`}
-            position="top">
-            <span>
-              <Info size={18} />
-            </span>
-          </InfoTooltip>
-        </BoardTitle>
-        <BoardList
-          items={filteredItems.map((item) => ({
-            ...item,
-            tierName: tierMap[item.tier] || "Unknown",
-          }))}
-        />
-      </BoardContainer>
-      <SearchFilterBox>
-        <SectionContainer>
-          <SectionTitle>Search</SectionTitle>
-          <RadioGroup>
-            <RadioLabel>
-              <input
-                type="radio"
-                name="searchType"
-                value="학번"
-                checked={searchType === "학번"}
-                onChange={(e) => {
-                  console.log("[SearchType Changed] 학번");
-                  setSearchType(e.target.value);
-                }}
-              />
-              학번
-            </RadioLabel>
-            <RadioLabel>
-              <input
-                type="radio"
-                name="searchType"
-                value="이름"
-                checked={searchType === "이름"}
-                onChange={(e) => {
-                  console.log("[SearchType Changed] 이름");
-                  setSearchType(e.target.value);
-                }}
-              />
-              이름
-            </RadioLabel>
-          </RadioGroup>
+          <div>
+            List{" "}
+            <InfoTooltip
+              text={`마지막 업데이트: ${getTodayString()} 05:00(KST)`}
+              position="top">
+              <span>
+                <Info size={18} />
+              </span>
+            </InfoTooltip>
+          </div>
+
           <SearchInputContainer>
             <SearchInput
               type="text"
-              placeholder="내용을 입력하세요"
+              placeholder="학번 또는 이름으로 검색"
               value={searchTerm}
               maxLength={9}
-              onChange={(e) => {
-                console.log("[SearchTerm Changed]", e.target.value);
-                setSearchTerm(e.target.value);
-              }}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <SearchIcon>
               <img src={icon1} alt="icon" style={{ width: "auto", height: "100%" }} />
             </SearchIcon>
           </SearchInputContainer>
+        </BoardTitle>
+
+        {filteredItems.length > 0 ? (
+          <BoardList
+            items={filteredItems.map((item) => ({
+              ...item,
+              tierName: tierMap[item.tier] || "Unknown",
+            }))}
+          />
+        ) : (
+          <div
+            style={{
+              padding: "40px 20px",
+              textAlign: "center",
+              color: "#555", // 기본 텍스트 색
+              fontSize: "18px",
+              fontWeight: "500",
+              backgroundColor: "#fdfdfd", // 밝은 배경
+              border: "2px solid #CDD1D5", // primary 컬러 테두리
+              borderRadius: "12px",
+              marginTop: "20px",
+              boxShadow: "0 6px 12px rgba(0,0,0,0.1)", // 그림자 더 진하게
+              lineHeight: "1.6",
+            }}>
+            <span style={{ color: "#2E7DFF" }}>"검색 결과가 없습니다"</span>
+            <br />
+            철자를 확인해주세요
+          </div>
+        )}
+      </BoardContainer>
+      <SearchFilterBox>
+        <SectionContainer>
+          <SectionTitle>Sort</SectionTitle>
+          <RadioGroup>
+            <RadioLabel>
+              <input
+                type="radio"
+                name="sortOrder"
+                value="asc"
+                checked={sortOrder === "asc"}
+                onChange={(e) => setSortOrder(e.target.value)}
+              />
+              오름차순
+            </RadioLabel>
+            <RadioLabel>
+              <input
+                type="radio"
+                name="sortOrder"
+                value="desc"
+                checked={sortOrder === "desc"}
+                onChange={(e) => setSortOrder(e.target.value)}
+              />
+              내림차순
+            </RadioLabel>
+          </RadioGroup>
+
+          <FilterSelect value={sortKey} onChange={(e) => setSortKey(e.target.value)}>
+            <option value="">정렬 기준 선택</option>
+            <option value="name">이름</option>
+            <option value="tier">티어</option>
+            <option value="solved_total">총 풀이</option>
+            <option value="accuracy_pct">정답률</option>
+            <option value="solved_today">일일 풀이</option>
+            <option value="streak_days">연속일수</option>
+          </FilterSelect>
         </SectionContainer>
         <SectionContainer>
           <SectionTitle>Filter</SectionTitle>

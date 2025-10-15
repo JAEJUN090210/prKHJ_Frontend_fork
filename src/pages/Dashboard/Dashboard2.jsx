@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Navigate } from "react-router-dom";
 import InfoTooltip from "../../components/Tooltip/Tooltip";
 import { Info } from "lucide-react";
 import {
@@ -75,9 +75,24 @@ function Dashboard() {
     31: "Master",
   };
 
-  const navigate = useNavigate();
   const { studentId } = useParams();
+  const navigate = useNavigate();
   console.log("[Dashboard] 현재 URL 파라미터 studentId:", studentId);
+
+  const id = Number(studentId);
+
+  const validRanges = [
+    [1101, 1116],
+    [1201, 1216],
+    [1301, 1316],
+    [1401, 1417],
+  ];
+
+  const isValid = validRanges.some(([start, end]) => id >= start && id <= end);
+
+  if (!isValid) {
+    return <Navigate to="/NotFound" replace />;
+  }
 
   const [studentInfo, setStudentInfo] = useState({
     student_no: "0000",

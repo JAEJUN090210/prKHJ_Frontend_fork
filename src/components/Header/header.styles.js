@@ -5,7 +5,7 @@ import colors from "../../styles/colors_system";
 export const HeaderWrapper = styled.header`
   width: 100%;
   height: 75px;
-  padding: 5px 360px 12px;
+  padding: 5px 10% 12px;
   border-bottom: 1px solid #8a949e;
   background-color: ${colors.gray[50]};
   box-sizing: border-box;
