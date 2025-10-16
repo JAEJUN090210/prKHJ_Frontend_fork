@@ -45,9 +45,9 @@ const Header = () => {
             <Link to="/signup">회원가입</Link> */}
             <Link to="/aboutDev">About</Link>
             <Divider>|</Divider>
-            <Link onClick={lerterror}>로그인</Link>
+            <Link to="/contact">Contact</Link>
             <Divider>|</Divider>
-            <Link onClick={lerterror}>회원가입</Link>
+            <Link onClick={lerterror}>로그인</Link>
           </TopLinks>
 
           <NavMenu>
