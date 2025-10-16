@@ -47,7 +47,7 @@ const Header = () => {
             <Divider>|</Divider>
             <Link to="/contact">Contact</Link>
             <Divider>|</Divider>
-            <Link onClick={lerterror}>로그인</Link>
+            <Link to="/login">로그인</Link>
           </TopLinks>
 
           <NavMenu>
