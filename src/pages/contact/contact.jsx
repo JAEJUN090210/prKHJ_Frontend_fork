@@ -45,7 +45,7 @@ function Contact() {
             <KakaoCard>
               <Type>KakaoTalk</Type>
               <KakaoButton href="https://open.kakao.com/me/dsm11fejaejun" target="_blank">
-                KHJ 프론트엔드 문의
+                KHJ Kakao Channel
               </KakaoButton>
             </KakaoCard>
           </Set>
@@ -140,7 +140,7 @@ const Card = styled.div`
   }
 `;
 
-const Type = styled.p`
+const Type = styled.div`
   font-size: 22px;
   color: ${colors.primary[500]};
   font-weight: 600;

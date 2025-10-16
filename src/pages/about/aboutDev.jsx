@@ -4,7 +4,7 @@ import colors from "../../styles/colors_system";
 
 function AboutDev() {
   return (
-    <body style={{ margin: 0, padding: 0, backgroundColor: colors.gray[100] }}>
+    <Container>
       <Wrapper>
         <SubTitle>Project KHJ의 개발팀을 소개해 드릴게요</SubTitle>
         <Title>개발자 소개</Title>
@@ -37,9 +37,15 @@ function AboutDev() {
           </Set>
         </Profile>
       </Wrapper>
-    </body>
+    </Container>
   );
 }
+
+const Container = styled.div`
+  margin: 0;
+  padding: 0;
+  background-color: ${colors.gray[100]};
+`;
 
 const Wrapper = styled.div`
   box-sizing: border-box;

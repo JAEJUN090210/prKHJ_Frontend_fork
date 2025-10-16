@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard/Dashboard2";
 import NotFound from "./pages/PageNotFound";
 import AboutDev from "./pages/about/aboutDev";
 import Contact from "./pages/contact/contact";
+import Login from "./pages/login/login";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -96,6 +97,14 @@ function App() {
           element={
             <Layout>
               <Home />
+            </Layout>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <Layout>
+              <Login />
             </Layout>
           }
         />
