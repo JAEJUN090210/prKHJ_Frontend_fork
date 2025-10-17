@@ -14,7 +14,9 @@ function AboutDev() {
               <Role>PM</Role>
               <Name>신동호</Name>
               <GithubId>
-                <a href="https://github.com/siren8170">@siren8170</a>{" "}
+                <a href="https://github.com/siren8170" target="_blank">
+                  @siren8170
+                </a>{" "}
                 <img src="../src/assets/Logo/github-mark.svg" alt="깃허브 로고" />
               </GithubId>
             </Card>
@@ -22,7 +24,9 @@ function AboutDev() {
               <Role>Frontend</Role>
               <Name>전재준</Name>
               <GithubId>
-                <a href="https://github.com/JAEJUN090210">@JAEJUN090210</a>{" "}
+                <a href="https://github.com/JAEJUN090210" target="_blank">
+                  @JAEJUN090210
+                </a>{" "}
                 <img src="../src/assets/Logo/github-mark.svg" alt="깃허브 로고" />
               </GithubId>
             </Card>
@@ -30,7 +34,9 @@ function AboutDev() {
               <Role>Backend</Role>
               <Name>김시흔</Name>
               <GithubId>
-                <a href="https://github.com/tlgms">@tlgms</a>{" "}
+                <a href="https://github.com/tlgms" target="_blank">
+                  @tlgms
+                </a>{" "}
                 <img src="../src/assets/Logo/github-mark.svg" alt="깃허브 로고" />
               </GithubId>
             </Card>

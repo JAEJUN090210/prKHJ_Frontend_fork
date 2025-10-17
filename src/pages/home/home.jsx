@@ -12,13 +12,17 @@ function Home() {
     navigate("/list");
   };
 
+  const handleLogin = () => {
+    navigate("/login");
+  };
+
   return (
     <Wrapper>
       <img src={backgroundImage} alt="background" />
       <Box>
         <span>로그인 후 서비스를 이용해 보세요</span>
         <span>Deadok Software Coding Test System</span>
-        <button onClick={lerterror}>로그인하러 가기</button>
+        <button onClick={handleLogin}>로그인하러 가기</button>
       </Box>
     </Wrapper>
   );
