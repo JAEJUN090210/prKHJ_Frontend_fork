@@ -5,13 +5,13 @@ import React, { useState, useEffect } from "react";
 import ScrollToTop from "./components/ScrollTop";
 
 import Layout from "./Layout";
-import Home from "./pages/home/home";
-import List from "./pages/list/list";
+import Home from "./pages/Home/home";
+import List from "./pages/List/list";
 import Dashboard from "./pages/Dashboard/Dashboard2";
 import NotFound from "./pages/PageNotFound";
-import AboutDev from "./pages/about/aboutDev";
-import Contact from "./pages/contact/contact";
-import Login from "./pages/login/login";
+import AboutDev from "./pages/About/aboutDev";
+import Contact from "./pages/Contact/contact";
+import Login from "./pages/Login/login";
 
 const GlobalStyle = createGlobalStyle`
   * {
