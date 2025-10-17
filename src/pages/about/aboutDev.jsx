@@ -58,7 +58,7 @@ const Wrapper = styled.div`
   padding: 80px 24px;
   padding-top: 40px;
   background-color: ${colors.gray[100]};
-  min-height: 600px;
+  height: 93vh;
   text-align: center;
   margin: 0 200px;
 `;

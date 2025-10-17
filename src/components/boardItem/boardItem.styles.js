@@ -9,7 +9,7 @@ export const BoardItemContainer = styled.div`
 
   display: flex;
   gap: 36px;
-  height: 35px;
+  height: 40px;
   width: 900px;
 
   border-bottom: 1px solid ${colors.gray[400]};
