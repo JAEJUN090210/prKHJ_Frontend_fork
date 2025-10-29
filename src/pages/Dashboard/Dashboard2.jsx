@@ -40,6 +40,7 @@ import {
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
 
 function Dashboard() {
+  //테스트
   const tierMap = {
     0: "Banned",
     1: "Bronze 5",
